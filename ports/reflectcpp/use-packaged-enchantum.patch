@@ -1,0 +1,43 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 391977a..53b03a8 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -260,6 +260,8 @@ else ()
+         find_package(ctre CONFIG REQUIRED)
+     endif ()
+     target_link_libraries(reflectcpp PUBLIC ctre::ctre)
++    find_package(enchantum CONFIG REQUIRED)
++    target_link_libraries(reflectcpp PUBLIC enchantum::enchantum)
+ endif ()
+ 
+ if (_REFLECTCPP_NEEDS_JSON_IMPL)
+@@ -595,4 +597,3 @@ include(CPack)
+ if (ament_cmake_FOUND)
+     ament_package()
+ endif()
+-
+diff --git a/include/rfl/internal/enums/cpp20/enchantum.hpp b/include/rfl/internal/enums/cpp20/enchantum.hpp
+index 30c7e8a..7cd87d4 100644
+--- a/include/rfl/internal/enums/cpp20/enchantum.hpp
++++ b/include/rfl/internal/enums/cpp20/enchantum.hpp
+@@ -29,7 +29,7 @@
+ #endif
+ #define ENCHANTUM_MAX_RANGE RFL_ENUM_RANGE_MAX
+ 
+-#include "../../../thirdparty/enchantum/enchantum.hpp"
++#include <enchantum/enchantum.hpp>
+ 
+ #endif
+ #endif
+diff --git a/reflectcpp-config.cmake.in b/reflectcpp-config.cmake.in
+index 6562aaf..39695e4 100644
+--- a/reflectcpp-config.cmake.in
++++ b/reflectcpp-config.cmake.in
+@@ -25,6 +25,7 @@ include(${CMAKE_CURRENT_LIST_DIR}/reflectcpp-exports.cmake)
+ 
+ if (NOT REFLECTCPP_USE_BUNDLED_DEPENDENCIES)
+   find_dependency(ctre)
++  find_dependency(enchantum CONFIG)
+ endif()
+ 
+ if ((REFLECTCPP_JSON OR REFLECTCPP_AVRO OR REFLECTCPP_CBOR OR REFLECTCPP_UBJSON) AND NOT REFLECTCPP_USE_BUNDLED_DEPENDENCIES)
